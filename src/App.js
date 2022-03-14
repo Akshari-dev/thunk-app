@@ -1,22 +1,39 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchPhotos } from './Store/Actions/actions';
 
 function App() {
+  const photos = useSelector(store => store.photos)
+  console.warn(photos);
+  const dispatch=useDispatch()
+
+  useEffect(() => {
+    console.warn('componentDidMount Called')
+    dispatch(fetchPhotos())
+  })
+  /* 
+  componentDidMount(){
+    api call
+  }
+  */
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          {
+            photos.map(photos => {
+
+              return (
+                <span>
+                <img src={photos.thumbnailUrl} />
+                </span>
+)
+            
+            })
+          }
+        </div>
       </header>
     </div>
   );
